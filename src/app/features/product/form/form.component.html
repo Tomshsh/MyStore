@@ -1,0 +1,17 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" #f="ngForm">
+  <div class="inputs">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required type="text" maxlength="30" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" type="text" maxlength="300"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" required type="number" [min]="1">
+    </mat-form-field>
+  </div>
+  <button mat-raised-button [disabled]="formGroup.invalid" type="submit" color="primary">SAVE</button>
+</form>

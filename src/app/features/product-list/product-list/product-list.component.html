@@ -1,0 +1,9 @@
+<ui-vertical-card *ngFor="let product of products" [routerLink]="['details',product.id.toString()]">
+  <div class="left-pane">
+  </div>
+  <mat-card-title class="title">{{product.name}}</mat-card-title>
+  <mat-card-subtitle class="sub-title">{{product.description}}</mat-card-subtitle>
+  <div class="actions">
+    <button mat-raised-button color="warn" (click)="deleteProduct(product.id)">Delete</button>
+  </div>
+</ui-vertical-card>

@@ -1,0 +1,16 @@
+<div class="actions">
+  <button mat-raised-button (click)="addProduct()">+ Add</button>
+  <mat-form-field appearance="outline">
+    <mat-label>Search Products</mat-label>
+    <input (change)="onFilter($event)" matInput placeholder="Milk">
+  </mat-form-field>
+  <div>
+    <p>
+      sort by:
+      <mat-button-toggle-group (change)="onSorted($event)" [value]="sortBy">
+        <mat-button-toggle *ngFor="let sorter of sorters" [value]="sorter.value">{{sorter.title}}</mat-button-toggle>
+        <button mat-raised-button color="primary" (click)="clearChoice()">clear</button>
+      </mat-button-toggle-group>
+    </p>
+  </div>
+</div>

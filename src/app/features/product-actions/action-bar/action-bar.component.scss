@@ -1,0 +1,15 @@
+.actions{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+
+  @media(max-width: 768px){
+    flex-direction: column;
+  }
+}
+
+.add-search{
+  display: flex;
+  flex-wrap: nowrap;
+}

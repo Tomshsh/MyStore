@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'heroes-tour';
+  title = 'My Store';
+
+  public sortEvent!: Event
+
+  onSort($event: any){
+    this.sortEvent = $event
+  }
 }
