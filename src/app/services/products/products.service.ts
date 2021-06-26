@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { Product } from 'src/app/types';
 import { LocalStorageService } from 'src/app/utilities/local-storage/local-storage.service';
 
@@ -8,16 +8,22 @@ import { LocalStorageService } from 'src/app/utilities/local-storage/local-stora
 })
 export class ProductsService {
 
+
   constructor(private lsService: LocalStorageService) {
     lsService.loadInfo()
+    lsService.lsProducts$.pipe(take(1))
+      .subscribe(products => {
+        this.products = products
+        this.products.map(p => this.productIdMap.set(p.id, 1))
+      })
   }
 
   products: Product[] = []
 
+  productIdMap = new Map<number, number>()
+
   getProducts = () => {
-    return this.lsService.lsProducts$.pipe(
-      tap(products => { this.products = products })
-    )
+    return this.lsService.lsProducts$
   }
 
   getProduct(id: number) {
@@ -34,8 +40,9 @@ export class ProductsService {
   }
 
   addProduct() {
-    if (!this.products.length || this.products[this.products.length-1].name != "...") {
-      const newProduct = { id: this.products.length, creationDate: new Date(), name: "...", price: 0, description: "" }
+    if (!this.products.length || this.products[this.products.length - 1].name != "...") {
+      const key = this.keyGenerator(this.products.length)
+      const newProduct = { id: key, creationDate: new Date(), name: "...", price: 0, description: "" }
       this.products.push(newProduct)
       return newProduct
     }
@@ -46,6 +53,17 @@ export class ProductsService {
     const index = this.products.findIndex(p => p.id == id)
     this.products.splice(index, 1)
     this.lsService.setInfo(this.products)
+  }
+
+  keyGenerator(startPos: number): number {
+    let key = startPos
+    let i = 1
+    while (this.productIdMap.has(key)) {
+      key = key + i * i
+      i++
+    }
+    this.productIdMap.set(key, 1)
+    return key
   }
 
 }

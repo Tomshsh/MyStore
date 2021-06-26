@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { Product } from 'src/app/types';
 
@@ -19,14 +20,11 @@ export class ProductListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() sortEvent!: Event
 
   sort(by: 'name' | 'recentlyAdded') {
-    this.productService.getProducts()
-      .subscribe(products => {
-        this.products = products.sort((a, b) => {
-          if (by == "name") return this.sortByName(a, b)
-          if (by == "recentlyAdded") return this.sortByDate(a, b)
-          return 0
-        })
-      })
+    this.products.sort((a, b) => {
+      if (by == "name") return this.sortByName(a, b)
+      if (by == "recentlyAdded") return this.sortByDate(a, b)
+      return 0
+    })
   }
 
   sortByName(a: Product, b: Product) {
