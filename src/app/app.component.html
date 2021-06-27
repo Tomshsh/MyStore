@@ -1,8 +1,8 @@
 <app-header [title]="title"></app-header>
 <ui-container>
   <div class="product-list">
-    <app-action-bar (sort)="onSort($event)" ></app-action-bar>
-    <app-product-list [sortEvent]="sortEvent"></app-product-list>
+    <app-action-bar (sort)="onSort($event)" (filter)="onFilter($event)"></app-action-bar>
+    <app-product-list [sortEvent]="sortEvent" [filterEvent]="filterEvent"></app-product-list>
   </div>
   <mat-divider class="divider" vertical></mat-divider>
   <div class="product-description">

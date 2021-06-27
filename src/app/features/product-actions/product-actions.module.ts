@@ -6,6 +6,7 @@ import {MatInputModule} from '@angular/material/input'
 import {MatButtonToggleModule} from '@angular/material/button-toggle'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatInputModule,
     MatButtonToggleModule,
     MatFormFieldModule,
+    FormsModule
   ],
   exports:[
     ActionBarComponent

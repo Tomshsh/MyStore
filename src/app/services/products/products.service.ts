@@ -13,14 +13,14 @@ export class ProductsService {
     lsService.loadInfo()
     lsService.lsProducts$.pipe(take(1))
       .subscribe(products => {
-        this.products = products
-        this.products.map(p => this.productIdMap.set(p.id, 1))
+        this._products = products
+        this._products.map(p => this.productIdMap.set(p.id, 1))
       })
   }
 
-  products: Product[] = []
+  private _products: Product[] = []
 
-  productIdMap = new Map<number, number>()
+  private productIdMap = new Map<number, number>()
 
   getProducts = () => {
     return this.lsService.lsProducts$
@@ -28,31 +28,31 @@ export class ProductsService {
 
   getProduct(id: number) {
     return this.getProducts().pipe(
-      map((products: Product[]) => products.find(p => p.id === +id) || this.products.find(p => p.id == id)!)
+      map((products: Product[]) => products.find(p => p.id === +id) || this._products.find(p => p.id == id)!)
     );
   }
 
   editProduct(id: number, newProduct: Product) {
-    let index = this.products.findIndex(p => p.id == id)
-    const original = this.products[index]
-    this.products[index] = { ...original, ...newProduct }
-    this.lsService.setInfo(this.products)
+    let index = this._products.findIndex(p => p.id == id)
+    const original = this._products[index]
+    this._products[index] = { ...original, ...newProduct }
+    this.lsService.setInfo(this._products)
   }
 
   addProduct() {
-    if (!this.products.length || this.products[this.products.length - 1].name != "...") {
-      const key = this.keyGenerator(this.products.length)
+    if (!this._products.length || this._products[this._products.length - 1].name != "...") {
+      const key = this.keyGenerator(this._products.length)
       const newProduct = { id: key, creationDate: new Date(), name: "...", price: 0, description: "" }
-      this.products.push(newProduct)
+      this._products.push(newProduct)
       return newProduct
     }
     return
   }
 
   deleteProduct(id: number) {
-    const index = this.products.findIndex(p => p.id == id)
-    this.products.splice(index, 1)
-    this.lsService.setInfo(this.products)
+    const index = this._products.findIndex(p => p.id == id)
+    this._products.splice(index, 1)
+    this.lsService.setInfo(this._products)
   }
 
   keyGenerator(startPos: number): number {

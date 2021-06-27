@@ -2,7 +2,7 @@
   <button mat-raised-button (click)="addProduct()">+ Add</button>
   <mat-form-field appearance="outline">
     <mat-label>Search Products</mat-label>
-    <input (change)="onFilter($event)" matInput placeholder="Milk">
+    <input matInput placeholder="Milk" [(ngModel)]="filterVal.val" name="search">
   </mat-form-field>
   <div>
     <p>

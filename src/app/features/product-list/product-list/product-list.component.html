@@ -1,5 +1,5 @@
-<div>
-  <ui-vertical-card *ngFor="let product of products" [routerLink]="['details',product.id.toString()]">
+<div class="list">
+  <ui-vertical-card *ngFor="let product of pageProducts" [routerLink]="['details',product.id.toString()]">
     <div class="left-pane">
     </div>
     <mat-card-title class="title">{{product.name}}</mat-card-title>
@@ -10,4 +10,4 @@
   </ui-vertical-card>
 </div>
 
-<mat-paginator [length]="products.length" pageSize=4></mat-paginator>
+<mat-paginator (page)="onPage($event.pageIndex)" #paginator [pageIndex]="pageIndex" [length]="products.length" pageSize=4 class="paginator"></mat-paginator>
