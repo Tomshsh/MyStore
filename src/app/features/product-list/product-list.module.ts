@@ -4,6 +4,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { UIModule } from 'src/app/ui/ui.module';
 import {MatCardModule} from '@angular/material/card'
 import {MatButtonModule} from '@angular/material/button'
+import {MatPaginatorModule} from '@angular/material/paginator'
 import { RouterModule } from '@angular/router';
 
 
@@ -16,7 +17,8 @@ import { RouterModule } from '@angular/router';
     UIModule,
     MatCardModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    MatPaginatorModule
   ],
   exports: [
     ProductListComponent

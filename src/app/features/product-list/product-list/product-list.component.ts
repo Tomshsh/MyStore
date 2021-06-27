@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
 import { ProductsService } from 'src/app/services/products/products.service';
 import { Product } from 'src/app/types';
 
@@ -55,7 +54,8 @@ export class ProductListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(a: SimpleChanges) {
-    if (a.sortEvent) {
+    if (a.sortEvent && !a.sortEvent.isFirstChange()) {
+      console.log(a)
       const by: 'name' | 'recentlyAdded' = a.sortEvent.currentValue
       this.sort(by)
     }
